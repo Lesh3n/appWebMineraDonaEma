@@ -8,8 +8,18 @@ import * as ServerMinera from './serverAPI/mineraServer'
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { FloatingLabel } from 'react-bootstrap';
+import { Toast } from 'react-bootstrap';
 
-
+const toastIngresoExitoso = () => {
+    <Toast>
+        <Toast.Header>
+            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+            <strong className="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+        </Toast.Header>
+        <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
+  </Toast>
+}
 //Se recibe un props en caso de que este sea necesario, esto, sirve para poder actualizar los datos correctamente. El props se envia desde Root.jsx
 export const Inventario = () => {
     const params = useParams();
@@ -82,15 +92,20 @@ export const Inventario = () => {
         }else{
             await ServerMinera.registrarObjeto(objeto);
             console.log("Registrando")
+            
         }
 
         window.location.reload();
+        toastIngresoExitoso()
         
     }
 
     const borrarRegistro = async (idObjeto) => {
         //console.log(idObjeto); Para verificar la recuperacion de la id a la hora de presionar el boton de borrado.
         //Espera a que reciba la respuesta de la api al mandarle la id del objeto, si la encuentra, borrara el dato solicitado a borrar.
+        //const opcion = confirm(`Esta seguro que desea borrar el objeto de ID: ${idObjeto}?`);
+        //console.log(opcion);
+
         await ServerMinera.borrarObjeto(idObjeto);
         //Renderiza la lista nuevamente
         listarObjetos();
@@ -121,10 +136,22 @@ export const Inventario = () => {
         // eslint-disable-next-line
     }, []);
 
+    {document.body.style = 'background: #ededeb;'};
     return (
         <>
-        <div id='tituloInventario'>
-            <h1 className='text-center'>Ingresar objetos</h1>
+        <br />
+        <div id='tituloInventario' className='text-center'>
+            {
+                objeto.idObjeto>0?(
+                        <h1>
+                            Actualizando Objeto
+                        </h1>
+                    ) : (
+                        <h1>
+                            Agregar Objeto
+                        </h1>
+                )
+            }
         </div>
         <br />
             <form onSubmit={manejarSubmit}>
@@ -194,21 +221,19 @@ export const Inventario = () => {
                             className = 'mb-3'
                         >
                             <Form.Control name='id_tipo_id' type='text' placeholder='Ej: 2 - Herramienta' defaultValue={objeto.id_tipo_id} onChange={manejarCambiosEntrada}/>
-                        </FloatingLabel>*
+                        </FloatingLabel>
                     </Form.Group>
                 </div>
                 <div className="text-center">
                     {
                         objeto.idObjeto>0?(
                             <Button variant='primary' type='submit' name="btnActualizar">
-                            <i class="bi bi-pencil"></i>
-                            ACTUALIZAR OBJETO
+                            ACTUALIZAR OBJETO <i class="bi bi-pencil"/>
                             </Button>
 
                         ) : (
                             <Button variant='success' type='submit' name="btnAgregar">
-                            <i className="bi bi-plus-circle-fill"></i>
-                            AGREGAR OBJETO
+                            AGREGAR OBJETO <i className="bi bi-plus-circle-fill"/>
                             </Button>
                         )
                     }
@@ -250,14 +275,15 @@ export const Inventario = () => {
                                 </Button>
                             </td>
                             <td>
-                                <Button variant='danger' id='btnBorrarObjeto' onClick={() => objeto.idObjeto && borrarRegistro(objeto.idObjeto)}>
+                                <Button variant='danger' id='btnBorrarObjeto' onClick={() => {if(window.confirm(`ADVERTENCIA: ¿Está seguro de eliminar el objeto seleccionado? ¡Los datos borrados NO podrán ser recuperados!`))objeto.idObjeto && borrarRegistro(objeto.idObjeto)}}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
                                         <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
                                     </svg>
                                 </Button>
                             </td>
                         </tr>
-                    )}
+                        )
+                        }
                     </tbody>
                 </table>
             </div>

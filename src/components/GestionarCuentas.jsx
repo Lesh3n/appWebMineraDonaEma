@@ -18,19 +18,14 @@ import {TODO} from 'react'
 
 
 <TODO>
-    Falta hacer que se vea bonito junto con los otros componentes disponibles, ademas, este componente
     
-    FALTA ACTUALIZAR DATOS, YA QUE ESTA FUNCIONAL EN LAS OTRAS
-
     Ademas de hacer el login funcional pero ver una forma de recuperar los datos para poder compararlos 
     con los existentes en la base de datos ademas de hacer una navbar dependiendo de la id del tipo de usuario.
 
     Y DESPLEGAR LA APP EN EL SERVIDOR EN LA NUBE AWS
 
-
-    SOLUCIONADO EL PROBLEMA QUE NO ME ARROJABA NULL A LA HORA DE INGRESAR LA ID DEL TIPO DE BODEGUERO, ERA UN PROBLEMA DE API.
-
     FALTA EL HISTORICO QUE DEBIA TENER TRIGGERS PERO SOY PENDEJO Y ME OLVIDE XDDDDDDDDD
+    
 </TODO>
 
 
@@ -119,11 +114,22 @@ export const GestionarCuentas = (props) => {
         }
     // eslint-disable-next-line
     }, []);
-
+    {document.body.style = 'background: #ededeb;'};
     return (
         <>
-        <div id='tituloInventario'>
-            <h1 className='text-center'>Ingresar cuentas</h1>
+        <br />
+        <div id='tituloGestionarCuentas' className='text-center'>
+            {
+                cuenta.idUsuario>0?(
+                        <h1>
+                            Actualizando Cuenta...
+                        </h1>
+                    ) : (
+                        <h1>
+                            Agregar una cuenta
+                        </h1>
+                )
+            }
         </div>
         <br />
             <form onSubmit={manejarSubmit}>
@@ -201,8 +207,8 @@ export const GestionarCuentas = (props) => {
                 </div>
             </form>
             <br />
-            <div>
-                <h1 className='text-center'>Cuentas Registradas</h1>
+            <div className='text-center'>
+                <h1>Cuentas Registradas</h1>
             </div>
             <div>
                 <table className="table table-striped mt-5">
@@ -235,7 +241,7 @@ export const GestionarCuentas = (props) => {
                                 </Button>
                             </td>
                             <td>
-                                <Button variant='danger' id='btnBorrarCuenta' onClick={() => cuenta.idUsuario && borrarCuenta(cuenta.idUsuario)}>
+                                <Button variant='danger' id='btnBorrarCuenta' onClick={() => {if(window.confirm(`ADVERTENCIA: ¿Está seguro que desea eliminar al usuario seleccionado? ¡Los datos borrados NO podrán ser recuperados!`))cuenta.idUsuario && borrarCuenta(cuenta.idUsuario)}}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
                                         <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
                                     </svg>

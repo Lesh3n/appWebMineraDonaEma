@@ -136,7 +136,7 @@ export const Inventario = () => {
         // eslint-disable-next-line
     }, []);
 
-    {document.body.style = 'background: #ededeb;'};
+    document.body.style = 'background: #ededeb;';
     return (
         <>
         <br />

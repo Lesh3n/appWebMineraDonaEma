@@ -105,7 +105,7 @@ export const GestionarCuentas = (props) => {
         }
     // eslint-disable-next-line
     }, []);
-    {document.body.style = 'background: #ededeb;'};
+    document.body.style = 'background: #ededeb;';
     return (
         <>
         <br />

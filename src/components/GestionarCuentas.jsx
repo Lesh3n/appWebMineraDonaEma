@@ -8,7 +8,7 @@ import * as ServerMinera from './serverAPI/mineraServer'
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { FloatingLabel } from 'react-bootstrap';
-import {TODO} from 'react'
+
 
 
 
@@ -17,16 +17,7 @@ import {TODO} from 'react'
 // para poder hacerla funcional y que este boton navegue hasta el component que contiene el modal para poder mostrarlo.
 
 
-<TODO>
-    
-    Ademas de hacer el login funcional pero ver una forma de recuperar los datos para poder compararlos 
-    con los existentes en la base de datos ademas de hacer una navbar dependiendo de la id del tipo de usuario.
 
-    Y DESPLEGAR LA APP EN EL SERVIDOR EN LA NUBE AWS
-
-    FALTA EL HISTORICO QUE DEBIA TENER TRIGGERS PERO SOY PENDEJO Y ME OLVIDE XDDDDDDDDD
-    
-</TODO>
 
 
 
